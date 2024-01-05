@@ -48,6 +48,7 @@ SourceArt/**/*.tga
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
+!Plugins/FMODStudio/Binaries
 
 # Builds
 Build/*
