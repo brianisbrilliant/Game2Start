@@ -12,11 +12,7 @@
 			]
 		},
 		{
-			"Name": "FMODStudio",
-			"Enabled": true
-		},
-		{
-			"Name": "FMODStudioNiagara",
+			"Name": "TDxUnrealEditor",
 			"Enabled": false
 		}
 	]
