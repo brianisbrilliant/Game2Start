@@ -7,4 +7,4 @@ This project requires that you install the FMOD plugin that matches your OS and 
 
 For MacOS Users, We coudl not get 5.2 to work, but Unreal 5.3 works great.
 
-# fixed the audio, shhhhhh
+# fixed the audio, shhhhhh ( i didn't actually. hi from thursday!)_
