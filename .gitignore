@@ -14,7 +14,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-# *.dll     # I need to include the FMOD plugin.
+*.dll
 
 # Fortran module files
 *.mod
@@ -23,7 +23,7 @@
 *.lai
 *.la
 *.a
-# *.lib     # I need to include the FMOD plugin.
+*.lib
 
 # Executables
 *.exe
@@ -48,9 +48,7 @@ SourceArt/**/*.tga
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
-
-# I need to include the FMOD plugin.
-!Plugins/FMODStudio/Binaries/*
+Plugins/FMODStudio/Binaries/*
 
 # Builds
 Build/*
