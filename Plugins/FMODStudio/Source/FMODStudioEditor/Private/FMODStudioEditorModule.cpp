@@ -20,8 +20,7 @@
 #include "Sequencer/FMODEventParameterTrackEditor.h"
 #include "AssetTypeActions_FMODEvent.h"
 
-#include "Slate/Public/Framework/Application/SlateApplication.h"
-#include "AssetRegistry/AssetRegistryModule.h"
+#include "AssetRegistryModule.h"
 #include "UnrealEd/Public/AssetSelection.h"
 #include "Slate/Public/Framework/Notifications/NotificationManager.h"
 #include "Slate/Public/Widgets/Notifications/SNotificationList.h"
@@ -242,7 +241,7 @@ public:
     FTickerDelegate OnTick;
 
     /** Handle for registered delegates. */
-    FTSTicker::FDelegateHandle TickDelegateHandle;
+    FDelegateHandle TickDelegateHandle;
     FDelegateHandle BeginPIEDelegateHandle;
     FDelegateHandle EndPIEDelegateHandle;
     FDelegateHandle PausePIEDelegateHandle;
@@ -334,7 +333,7 @@ void FFMODStudioEditorModule::OnPostEngineInit()
         {
             RegisterHelpMenuEntries();
             MainMenuExtender = MakeShareable(new FExtender);
-            MainMenuExtender->AddMenuExtension("FileOpen", EExtensionHook::After, NULL,
+            MainMenuExtender->AddMenuExtension("FileLoadAndSave", EExtensionHook::After, NULL,
                 FMenuExtensionDelegate::CreateRaw(this, &FFMODStudioEditorModule::AddFileMenuExtension));
             LevelEditor->GetMenuExtensibilityManager()->AddExtender(MainMenuExtender);
         }
@@ -358,7 +357,7 @@ void FFMODStudioEditorModule::OnPostEngineInit()
     ViewportDrawingDelegateHandle = UDebugDrawService::Register(TEXT("Editor"), ViewportDrawingDelegate);
 
     OnTick = FTickerDelegate::CreateRaw(this, &FFMODStudioEditorModule::Tick);
-    TickDelegateHandle = FTSTicker::GetCoreTicker().AddTicker(OnTick);
+    TickDelegateHandle = FTicker::GetCoreTicker().AddTicker(OnTick);
 
     // Create asset builder
     AssetBuilder.Create();
@@ -411,7 +410,7 @@ void FFMODStudioEditorModule::RegisterHelpMenuEntries()
         NAME_None,
         LOCTEXT("FMODHelpCHMTitle", "FMOD Documentation..."),
         LOCTEXT("FMODHelpCHMToolTip", "Opens the local FMOD documentation."),
-        FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.BrowseAPIReference"),
+        FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.BrowseAPIReference"),
         FUIAction(FExecuteAction::CreateRaw(this, &FFMODStudioEditorModule::OpenIntegrationDocs))
     ));
 #endif
@@ -420,7 +419,7 @@ void FFMODStudioEditorModule::RegisterHelpMenuEntries()
         NAME_None,
         LOCTEXT("FMODHelpOnlineTitle", "FMOD Online Documentation..."),
         LOCTEXT("FMODHelpOnlineToolTip", "Go to the online FMOD documentation."),
-        FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.BrowseDocumentation"),
+        FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.BrowseDocumentation"),
         FUIAction(FExecuteAction::CreateRaw(this, &FFMODStudioEditorModule::OpenAPIDocs))
     ));
 
@@ -428,7 +427,7 @@ void FFMODStudioEditorModule::RegisterHelpMenuEntries()
         NAME_None,
         LOCTEXT("FMODHelpVideosTitle", "FMOD Tutorial Videos..."),
         LOCTEXT("FMODHelpVideosToolTip", "Go to the online FMOD tutorial videos."),
-        FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tutorials"),
+        FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tutorials"),
         FUIAction(FExecuteAction::CreateRaw(this, &FFMODStudioEditorModule::OpenVideoTutorials))
     ));
 
@@ -520,12 +519,12 @@ void FFMODStudioEditorModule::ShowVersion()
 
 void FFMODStudioEditorModule::OpenIntegrationDocs()
 {
-    FPlatformProcess::LaunchFileInDefaultExternalApplication(TEXT("https://www.fmod.com/docs/unreal"));
+    FPlatformProcess::LaunchFileInDefaultExternalApplication(TEXT("https://fmod.com/docs/2.02/unreal"));
 }
 
 void FFMODStudioEditorModule::OpenAPIDocs()
 {
-    FPlatformProcess::LaunchFileInDefaultExternalApplication(TEXT("https://www.fmod.com/docs/api"));
+    FPlatformProcess::LaunchFileInDefaultExternalApplication(TEXT("https://fmod.com/docs/2.02/api"));
 }
 
 void FFMODStudioEditorModule::OpenVideoTutorials()
@@ -967,7 +966,7 @@ void FFMODStudioEditorModule::ValidateFMOD()
                 PackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Add(Settings.BankOutputDirectory);
             }
 
-            PackagingSettings->TryUpdateDefaultConfigFile();
+            PackagingSettings->UpdateDefaultConfigFile();
         }
     }
     else if (!bPackagingFound)
@@ -980,7 +979,7 @@ void FFMODStudioEditorModule::ValidateFMOD()
         if (EAppReturnType::Yes == FMessageDialog::Open(EAppMsgType::YesNo, message))
         {
             PackagingSettings->DirectoriesToAlwaysStageAsNonUFS.Add(Settings.BankOutputDirectory);
-            PackagingSettings->TryUpdateDefaultConfigFile();
+            PackagingSettings->UpdateDefaultConfigFile();
         }
     }
 
@@ -1008,7 +1007,7 @@ void FFMODStudioEditorModule::ValidateFMOD()
                 GeneratedDir.Path = Settings.GetFullContentPath() / folder;
                 PackagingSettings->DirectoriesToAlwaysCook.Add(GeneratedDir);
             }
-            PackagingSettings->TryUpdateDefaultConfigFile();
+            PackagingSettings->UpdateDefaultConfigFile();
         }
     }
 
@@ -1173,7 +1172,7 @@ void FFMODStudioEditorModule::ShutdownModule()
         BankUpdateNotifier.BanksUpdatedEvent.RemoveAll(this);
 
         // Unregister tick function.
-        FTSTicker::GetCoreTicker().RemoveTicker(TickDelegateHandle);
+        FTicker::GetCoreTicker().RemoveTicker(TickDelegateHandle);
 
         FEditorDelegates::BeginPIE.Remove(BeginPIEDelegateHandle);
         FEditorDelegates::EndPIE.Remove(EndPIEDelegateHandle);
@@ -1270,7 +1269,7 @@ void FFMODStudioEditorModule::ReloadBanks()
 void FFMODStudioEditorModule::ShowNotification(const FText &Text, SNotificationItem::ECompletionState State)
 {
     FNotificationInfo Info(Text);
-    Info.Image = FAppStyle::GetBrush(TEXT("NoBrush"));
+    Info.Image = FEditorStyle::GetBrush(TEXT("NoBrush"));
     Info.FadeInDuration = 0.1f;
     Info.FadeOutDuration = 0.5f;
     Info.ExpireDuration = State == SNotificationItem::CS_Fail ? 6.0f : 1.5f;

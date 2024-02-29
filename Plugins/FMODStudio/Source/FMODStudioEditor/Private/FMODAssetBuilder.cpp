@@ -1,6 +1,6 @@
 #include "FMODAssetBuilder.h"
 
-#include "AssetRegistry/AssetRegistryModule.h"
+#include "AssetRegistryModule.h"
 #include "FMODAssetLookup.h"
 #include "FMODAssetTable.h"
 #include "FMODBank.h"

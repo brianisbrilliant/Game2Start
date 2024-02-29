@@ -1,19 +1,23 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.2",
+	"EngineAssociation": "4.27",
 	"Category": "",
 	"Description": "",
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Editor"
-			]
+			"Enabled": true
 		},
 		{
 			"Name": "TDxUnrealEditor",
 			"Enabled": false
+		},
+		{
+			"Name": "FMODStudio",
+			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"HoloLens"
 	]
 }

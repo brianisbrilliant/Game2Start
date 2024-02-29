@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MVVM/Views/KeyDrawParams.h"
+#include "KeyDrawParams.h"
 #include "Channels/MovieSceneChannelHandle.h"
 #include "Sequencer/FMODEventControlSection.h"
 

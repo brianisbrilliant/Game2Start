@@ -712,8 +712,7 @@ void UFMODAudioComponent::PlayInternal(EFMODSystemContext::Type Context, bool bR
 {
     Stop();
 
-    if (!FMODUtils::IsWorldAudible(GetWorld(), Context == EFMODSystemContext::Editor
-        || Context == EFMODSystemContext::Auditioning))
+    if (!FMODUtils::IsWorldAudible(GetWorld(), Context == EFMODSystemContext::Editor))
     {
         return;
     }

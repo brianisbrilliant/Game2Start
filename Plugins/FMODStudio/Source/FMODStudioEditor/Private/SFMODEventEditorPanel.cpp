@@ -76,7 +76,7 @@ TSharedRef<SBorder> SFMODEventEditorPanel::ConstructToolbar(FMOD::Studio::EventD
     }
 
     return SNew(SBorder)
-        .BorderImage(FAppStyle::Get().GetBrush("ToolPanel.GroupBorder"))
+        .BorderImage(FEditorStyle::Get().GetBrush("ToolPanel.GroupBorder"))
         .Padding(6.0f)
         .Content()[SNew(SHorizontalBox) +
                    SHorizontalBox::Slot()

@@ -29,7 +29,6 @@ namespace UnrealBuildTool.Rules
                 {
                     "Core",
                     "CoreUObject",
-                    "DeveloperToolSettings",
                     "Engine",
                     "FMODStudio",
                     "InputCore",

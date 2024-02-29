@@ -57,16 +57,17 @@ void FFMODAssetTable::Load()
     }
     else
     {
+        TCHAR msg[] = TEXT("Failed to load bank lookup");
         if (IsRunningCommandlet())
         {
             // If we're running in a commandlet (maybe we're cooking or running FMODGenerateAssets
             // commandlet) Display a message but don't cause the build to Error out.
-            UE_LOG(LogFMOD, Display, TEXT("Failed to load bank lookup"));
+            UE_LOG(LogFMOD, Display, msg);
         }
         else
         {
             // If we're running in game or in editor, log this as an Error
-            UE_LOG(LogFMOD, Error, TEXT("Failed to load bank lookup"));
+            UE_LOG(LogFMOD, Error, msg);
         }
     }
 
@@ -81,16 +82,17 @@ void FFMODAssetTable::Load()
     }
     else
     {
+        TCHAR msg[] = TEXT("Failed to load asset lookup");
         if (IsRunningCommandlet())
         {
             // If we're running in a commandlet (maybe we're cooking or running FMODGenerateAssets
             // commandlet) Display a message but don't cause the build to Error out.
-            UE_LOG(LogFMOD, Display, TEXT("Failed to load asset lookup"));
+            UE_LOG(LogFMOD, Display, msg);
         }
         else
         {
             // If we're running in game or in editor, log this as an Error
-            UE_LOG(LogFMOD, Error, TEXT("Failed to load asset lookup"));
+            UE_LOG(LogFMOD, Error, msg);
         }
     }
 }

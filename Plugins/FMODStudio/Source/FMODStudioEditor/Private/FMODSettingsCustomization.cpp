@@ -62,7 +62,7 @@ public:
             [
                 SNew(SBorder)
                 .BorderBackgroundColor(this, &SSettingsMessage::GetBorderColor)
-                .BorderImage(FAppStyle::GetBrush("ToolPanel.LightGroupBorder"))
+                .BorderImage(FEditorStyle::GetBrush("ToolPanel.LightGroupBorder"))
                 .Padding(8.0f)
                 [
                     SNew(SWidgetSwitcher)
@@ -111,7 +111,7 @@ private:
         TSharedRef<SHorizontalBox> Result = SNew(SHorizontalBox)
 
             // Status icon
-            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SImage).Image(FAppStyle::GetBrush(IconName))]
+            + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SImage).Image(FEditorStyle::GetBrush(IconName))]
 
             // Notice
             + SHorizontalBox::Slot()
@@ -196,7 +196,7 @@ private:
                 PackagingSettings->DirectoriesToAlwaysCook.Add(generatedFolder);
             }
 
-            PackagingSettings->TryUpdateDefaultConfigFile();
+            PackagingSettings->UpdateDefaultConfigFile();
         }
 
         UpdateState();
@@ -229,7 +229,7 @@ FFMODSettingsCustomization::FFMODSettingsCustomization()
 
 void FFMODSettingsCustomization::CustomizeDetails(IDetailLayoutBuilder &DetailLayout)
 {
-    IDetailCategoryBuilder &PackagingCategory = DetailLayout.EditCategory(TEXT("Notice"), FText::GetEmpty(), ECategoryPriority::Important);
+    IDetailCategoryBuilder &PackagingCategory = DetailLayout.EditCategory(TEXT("Basic"));
     TSharedRef<SSettingsMessage> PlatformSetupMessage = SNew(SSettingsMessage);
     PackagingCategory.AddCustomRow(LOCTEXT("Warning", "Warning"), false).WholeRowWidget[PlatformSetupMessage];
 }

@@ -446,6 +446,6 @@ private:
     /** The length of the current Event in milliseconds. */
     int32 EventLength;
 
-    /** To prevent restarting by delayed state restore from sequencer. */
+    /** Used by FPlayingToken to prevent restarting from delayed sequencer state restore. */
     bool bPlayEnded;
 };
