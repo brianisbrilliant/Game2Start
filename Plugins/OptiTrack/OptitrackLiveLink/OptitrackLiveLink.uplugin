@@ -1,0 +1,32 @@
+{
+	"FileVersion": 3,
+	"Version": 8,
+	"VersionName": "5.3 v2",
+	"FriendlyName": "OptiTrack - Live Link",
+	"Description": "Provides a Live Link source for streaming data from OptiTrack's software Motive.",
+	"Category": "OptiTrack",
+	"CreatedBy": "OptiTrack",
+	"CreatedByURL": "https://www.optitrack.com/",
+	"DocsURL": "https://wiki.optitrack.com/index.php?title=Unreal_Engine:_OptiTrack_Live_Link_Plugin",
+	"MarketplaceURL": "",
+	"SupportURL": "https://www.optitrack.com/support/",
+	"EngineVersion": "5.3.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "OptitrackLiveLink",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "LiveLink",
+			"Enabled": true
+		}
+	]
+}
